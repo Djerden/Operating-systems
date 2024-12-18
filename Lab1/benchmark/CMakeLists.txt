@@ -26,4 +26,3 @@ MONOLITH_BENCH_DECLARE(bin-search bin-search.cpp)
 #генератор тестовых файлов
 MONOLITH_BENCH_DECLARE(generator generator.cpp)
 
-MONOLITH_BENCH_DECLARE(hello-world HelloWorldBench.cpp)
