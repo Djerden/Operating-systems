@@ -21,7 +21,10 @@ void generateBinarySearchFile(const std::string& filename) {
         data[i] = rand() % MAX_VALUE;  // Заполняем случайными числами
     }
 
-    // Запись случайных данных в файл для бинарного поиска
+    // Сортируем данные перед записью в файл
+    std::sort(data.begin(), data.end());
+
+    // Запись отсортированных данных в файл для бинарного поиска
     outFile.write(reinterpret_cast<char*>(data.data()), data.size() * sizeof(int));
     outFile.close();
 
@@ -41,10 +44,7 @@ void generateSortFile(const std::string& filename) {
         data[i] = rand() % MAX_VALUE;  // Заполняем случайными числами
     }
 
-    // Сортируем данные перед записью в файл
-    std::sort(data.begin(), data.end());
-
-    // Запись отсортированных данных в файл для сортировки
+    // Запись неотсортированных данных в файл для сортировки
     outFile.write(reinterpret_cast<char*>(data.data()), data.size() * sizeof(int));
     outFile.close();
 

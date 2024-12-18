@@ -26,6 +26,19 @@ void externalBinarySearch(const std::string& filename, int target) {
 
     std::vector<int> buffer(BLOCK_SIZE / sizeof(int));
     while (inputFile.read(reinterpret_cast<char*>(buffer.data()), BLOCK_SIZE)) {
+        size_t elementsRead = BLOCK_SIZE / sizeof(int);
+        if (binarySearch(buffer, target)) {
+            std::cout << "Element found!" << std::endl;
+            inputFile.close();
+            return;
+        }
+    }
+
+    // Обработка оставшихся данных, если их меньше, чем BLOCK_SIZE
+    size_t bytesRemaining = inputFile.gcount();  // Сколько байт было прочитано в последнем вызове
+    if (bytesRemaining > 0) {
+        size_t elementsRead = bytesRemaining / sizeof(int);
+        buffer.resize(elementsRead);  // Уменьшаем размер буфера до количества прочитанных элементов
         if (binarySearch(buffer, target)) {
             std::cout << "Element found!" << std::endl;
             inputFile.close();
@@ -36,6 +49,7 @@ void externalBinarySearch(const std::string& filename, int target) {
     std::cout << "Element not found!" << std::endl;
     inputFile.close();
 }
+
 
 void benchmark(int repetitions, const std::string& filename, int target, int numThreads) {
     struct timeval start, end;
